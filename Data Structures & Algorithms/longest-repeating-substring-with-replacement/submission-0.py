@@ -1,0 +1,24 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        #sliding window where everytime you break continuity
+        #subtract 1 k times for that letter
+
+        count = {} #if default dict you dont need .get can use +=
+        l = 0
+        res = 0
+
+        for r in range(len(s)):
+            
+            count[s[r]] = 1 + count.get(s[r], 0)
+            window = r - l + 1
+            if window - max(count.values()) > k:
+                count[s[l]] -= 1
+                l += 1
+            
+            res = max(res, r - l + 1)
+        return res
+
+
+
+
+
